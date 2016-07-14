@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Servlet 02</title>
+</head>
+<body>
+<h1>Servlet 02 请求参数传递。</h1>
+<form action="/user/hello.do" method="post">
+    <div><label>姓名：</label><input name="xm"/></div>
+    <div><button>Hello</button></div>
+</form>
+
+<form action="/user/regist.do" method="post">
+    <div><label>姓名</label><input name="name" /></div>
+    <div><label>年龄</label><input name="age" /></div>
+    <div><label>邮箱</label><input name="email" /></div>
+    <div><button>注册</button></div>
+</form>
+</body>
+</html>

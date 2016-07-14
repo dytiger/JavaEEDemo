@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <!-- 声明一个名为HelloWorld的Servlet -->
+    <!-- 这个Servlet对应org.forten.sample.jee.servlet.HelloWorldServlet类 -->
+    <servlet>
+        <servlet-name>HelloWorld</servlet-name>
+        <servlet-class>org.forten.sample.jee.servlet.HelloWorldServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HelloChina</servlet-name>
+        <servlet-class>org.forten.sample.jee.servlet.HelloChinaServlet</servlet-class>
+    </servlet>
+
+    <!-- 把名为HelloWorld的Servlet映射到/helloworld.do这个URL上 -->
+    <!-- 客户端可以通过http://localhost:8081/helloworld.do来调用这个类中的特定访问（取决于请求方式(get/post)） -->
+    <servlet-mapping>
+        <servlet-name>HelloWorld</servlet-name>
+        <url-pattern>/helloworld.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HelloChina</servlet-name>
+        <url-pattern>/hellochina.do</url-pattern>
+    </servlet-mapping>
+</web-app>

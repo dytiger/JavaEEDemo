@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/JavaEEDemo.iml" filepath="$PROJECT_DIR$/JavaEEDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/Servlet01/Servlet01.iml" filepath="$PROJECT_DIR$/Servlet01/Servlet01.iml" />
       <module fileurl="file://$PROJECT_DIR$/Servlet02/Servlet02.iml" filepath="$PROJECT_DIR$/Servlet02/Servlet02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Servlet03/Servlet03.iml" filepath="$PROJECT_DIR$/Servlet03/Servlet03.iml" />
     </modules>
   </component>
 </project>

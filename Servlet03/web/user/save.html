@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+</head>
+<body>
+    <form action="save.do" method="post">
+        <div>
+            <label>用户名</label>
+            <input name="name" />
+        </div>
+        <div>
+            <label>密码</label>
+            <input name="password" type="password" />
+        </div>
+        <div>
+            <label>性别</label>
+            <label><input name="gender" type="radio" value="M" checked />男</label>
+            <label><input name="gender" type="radio" value="F" />女</label>
+            <label><input name="gender" type="radio" value="U" />保密</label>
+        </div>
+        <div>
+            <label>生日</label>
+            <input name="birthday" type="date" value="1990-01-01" />
+        </div>
+        <div>
+            <label>Email</label>
+            <input name="email" type="email" />
+        </div>
+        <div>
+            <button>注册</button><button type="reset">重置</button>
+        </div>
+    </form>
+</body>
+</html>

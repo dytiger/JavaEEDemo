@@ -2,11 +2,10 @@ package org.forten.sample.jee.bo;
 
 import org.forten.sample.jee.model.User;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/7/15.
@@ -34,14 +33,39 @@ public class UserBo {
         return count;
     }
 
-    public static void main(String[] args) {
-        User user = new User("Tom","123","M",new Date(),"sldk@k.com");
-        try {
-            doSave(user);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public static List<User> queryAll() throws ClassNotFoundException, SQLException {
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","hr","123456");
+
+        String sql = "SELECT id,name,email,birthday,gender,user_level,regist_time FROM hr.test_users WHERE 1=1 ORDER BY id DESC";
+        Statement stat = conn.createStatement();
+        ResultSet rs = stat.executeQuery(sql);
+
+        List<User> list = new ArrayList<>();
+        while (rs.next()){
+            User u = new User();
+            u.setId(rs.getInt("id"));
+            u.setEmail(rs.getString("email"));
+            u.setName(rs.getString("name"));
+            u.setBirthday(rs.getDate("birthday"));
+            u.setGender(rs.getString("gender"));
+            u.setLevel(rs.getInt("user_level"));
+            u.setRegistTime(rs.getDate("regist_time"));
+
+            list.add(u);
+        }
+
+        rs.close();
+        stat.close();
+        conn.close();
+
+        return list;
+    }
+
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        List<User> list = queryAll();
+        for(User u : list){
+            System.out.println(u);
         }
     }
 }

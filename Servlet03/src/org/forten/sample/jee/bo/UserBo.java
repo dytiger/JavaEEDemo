@@ -62,6 +62,101 @@ public class UserBo {
         return list;
     }
 
+    public static int doDelete(int id) throws SQLException, ClassNotFoundException{
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","hr","123456");
+
+        String sql = "DELETE FROM hr.test_users WHERE id=?";
+        PreparedStatement stat = conn.prepareStatement(sql);
+        stat.setInt(1,id);
+
+        int count = stat.executeUpdate();
+        stat.close();
+        conn.close();
+        return count;
+    }
+
+    public static User queryById(int id) throws SQLException, ClassNotFoundException {
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","hr","123456");
+
+        String sql = "SELECT id,name,email,birthday,gender FROM hr.test_users WHERE id=?";
+        PreparedStatement stat = conn.prepareStatement(sql);
+        stat.setInt(1,id);
+
+        ResultSet rs = stat.executeQuery();
+
+        if(!rs.next()){
+            return null;
+        }
+
+        User u = new User();
+        u.setId(rs.getInt("id"));
+        u.setName(rs.getString("name"));
+        u.setEmail(rs.getString("email"));
+        u.setBirthday(rs.getDate("birthday"));
+        u.setGender(rs.getString("gender"));
+
+        rs.close();
+        stat.close();
+        conn.close();
+
+        return u;
+    }
+
+    public static int doUpdate(User u) throws SQLException, ClassNotFoundException {
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","hr","123456");
+
+        String sql = "UPDATE hr.test_users SET name=?,email=?,birthday=?,gender=? WHERE id=?";
+        PreparedStatement stat = conn.prepareStatement(sql);
+        stat.setString(1,u.getName());
+        stat.setString(2,u.getEmail());
+        stat.setDate(3,new java.sql.Date(u.getBirthday().getTime()));
+        stat.setString(4,u.getGender());
+        stat.setInt(5,u.getId());
+
+        int count = stat.executeUpdate();
+
+        stat.close();
+        conn.close();
+
+        return count;
+    }
+
+    public static int doModifyPassword(int id,String oldPwd,String newPwd) throws SQLException, ClassNotFoundException {
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","hr","123456");
+
+        String sql = "SELECT count(id) FROM hr.test_users WHERE id=? AND password=?";
+        PreparedStatement stat = conn.prepareStatement(sql);
+
+        stat.setInt(1,id);
+        stat.setString(2,oldPwd);
+
+        ResultSet rs = stat.executeQuery();
+        rs.next();
+        long count = rs.getLong(1);
+
+        if(count == 0){
+            return 0;
+        }
+
+        rs.close();
+        stat.close();
+
+        sql = "UPDATE hr.test_users SET password=? WHERE id=?";
+        stat = conn.prepareStatement(sql);
+        stat.setString(1,newPwd);
+        stat.setInt(2,id);
+        int updateCount = stat.executeUpdate();
+
+        stat.close();
+        conn.close();
+
+        return updateCount;
+    }
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         List<User> list = queryAll();
         for(User u : list){

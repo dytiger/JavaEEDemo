@@ -16,16 +16,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Administrator on 2016/7/15.
+ * Created by Administrator on 2016/7/19.
  */
-@WebServlet(name = "SaveUserServlet",urlPatterns = {"/user/save.do"})
-public class SaveUserServlet extends HttpServlet {
+@WebServlet(name = "UpdateServlet",urlPatterns = "/user/update.do")
+public class UpdateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
+        String idStr = request.getParameter("id");
+        int id = Integer.parseInt(idStr);
         String name = request.getParameter("name");
-        String password = request.getParameter("password");
         String gender = request.getParameter("gender");
         String birthdayStr = request.getParameter("birthday");
         String email = request.getParameter("email");
@@ -38,21 +39,39 @@ public class SaveUserServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        User user = new User(name,password,gender,birthday,email);
+        User user = new User(id,name,gender,birthday,email);
 
-        PrintWriter out = response.getWriter();
         try {
-            UserBo.doSave(user);
+            UserBo.doUpdate(user);
+            // 重定向
             response.sendRedirect("list2.do");
-        } catch (ClassNotFoundException e) {
-            out.print("<h1>用户注册失败</h1>");
-            e.printStackTrace();
         } catch (SQLException e) {
-            out.print("<h1>用户注册失败，数据库出错</h1>");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
-        out.print("<h1>用户注册成功</h1>");
-        out.close();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
+        String idStr = request.getParameter("id");
+        int id = Integer.parseInt(idStr);
+
+        User u = null;
+        try (PrintWriter out = response.getWriter()){
+            u = UserBo.queryById(id);
+            if(u==null){
+                out.print("<h1>此用户数据不存在</h1>");
+            }else{
+                request.setAttribute("user",u);
+                request.getRequestDispatcher("update.jsp").forward(request,response);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

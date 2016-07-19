@@ -10,6 +10,11 @@
 <html>
 <head>
     <title>用户列表</title>
+    <script>
+        function sureDel(){
+            return confirm("是否真正要删除用户数据？");
+        }
+    </script>
 </head>
 <body>
 <table border="1">
@@ -34,7 +39,10 @@
                 </c:choose>
             </td>
             <td>${u.registTime}</td>
-            <td>YYY</td>
+            <td>
+                <a href="delete.do?id=${u.id}" onclick="return sureDel();">删除</a>
+                <a href="update.do?id=${u.id}">修改</a>
+            </td>
         </tr>
     </c:forEach>
 </table>

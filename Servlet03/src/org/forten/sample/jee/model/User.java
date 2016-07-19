@@ -29,6 +29,14 @@ public class User {
         this.email = email;
     }
 
+    public User(int id,String name, String gender, Date birthday, String email) {
+        this.id = id;
+        this.name = name;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.email = email;
+    }
+
     public User(int id, String name, String password, String gender, Date birthday, String email) {
         this();
         this.id = id;

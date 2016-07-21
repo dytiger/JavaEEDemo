@@ -17,6 +17,8 @@
     </script>
 </head>
 <body>
+<p>你好：${sessionScope.loginedUser.name}</p>
+<p><a href="../logout.do">退出</a></p>
 <table border="1">
     <tr><th>序号</th><th>姓名</th><th>生日</th><th>Email</th><th>性别</th><th>等级</th><th>注册时间</th><th>操作</th></tr>
     <c:forEach items="${data}" var="u" varStatus="s">

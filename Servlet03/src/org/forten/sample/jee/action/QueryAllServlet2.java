@@ -19,8 +19,6 @@ import java.util.List;
 @WebServlet(name = "QueryAllServlet2",urlPatterns = "/user/list2.do")
 public class QueryAllServlet2 extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
 
         try {
             // 调用后台的业务逻辑，得到数据

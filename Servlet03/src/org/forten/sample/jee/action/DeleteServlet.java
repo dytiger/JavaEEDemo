@@ -17,8 +17,6 @@ import java.sql.SQLException;
 @WebServlet(name = "DeleteServlet",urlPatterns = "/user/delete.do")
 public class DeleteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
 
         String idStr = request.getParameter("id");
         int id = Integer.parseInt(idStr);

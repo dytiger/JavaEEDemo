@@ -21,8 +21,6 @@ import java.util.Date;
 @WebServlet(name = "UpdateServlet",urlPatterns = "/user/update.do")
 public class UpdateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
 
         String idStr = request.getParameter("id");
         int id = Integer.parseInt(idStr);
@@ -53,8 +51,6 @@ public class UpdateServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
 
         String idStr = request.getParameter("id");
         int id = Integer.parseInt(idStr);

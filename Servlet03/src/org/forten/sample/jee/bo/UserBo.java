@@ -1,6 +1,7 @@
 package org.forten.sample.jee.bo;
 
 import org.forten.sample.jee.model.User;
+import org.w3c.dom.stylesheets.StyleSheet;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -155,6 +156,32 @@ public class UserBo {
         conn.close();
 
         return updateCount;
+    }
+
+    public static User login(String name,String password) throws SQLException, ClassNotFoundException {
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","hr","123456");
+
+        String sql = "SELECT id,name,user_level FROM hr.test_users WHERE name=? AND password=?";
+        PreparedStatement stat = conn.prepareStatement(sql);
+        stat.setString(1,name);
+        stat.setString(2,password);
+
+        ResultSet rs = stat.executeQuery();
+        if(!rs.next()){
+            return null;
+        }
+
+        User user = new User();
+        user.setId(rs.getInt(1));
+        user.setName(rs.getString(2));
+        user.setLevel(rs.getInt(3));
+
+        rs.close();
+        stat.close();
+        conn.close();
+
+        return user;
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {

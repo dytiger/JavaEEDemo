@@ -19,8 +19,6 @@ import java.util.List;
 @WebServlet(name = "QueryAllServlet",urlPatterns = "/user/list.do")
 public class QueryAllServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
 
         try {
             List<User> list = UserBo.queryAll();

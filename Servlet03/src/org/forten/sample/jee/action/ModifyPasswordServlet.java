@@ -16,8 +16,6 @@ import java.sql.SQLException;
 @WebServlet(name = "ModifyPasswordServlet",urlPatterns = "/user/modifyPwd.do")
 public class ModifyPasswordServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
 
         int id = 1;// TODO 这里的值应该从session范围中得到
 
